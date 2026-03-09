@@ -1,0 +1,58 @@
+-- Create a new database
+CREATE DATABASE GreenFieldPrimarySchoolDB;
+GO
+
+-- Use the database
+USE GreenFieldPrimarySchoolDB;
+GO
+
+-- Create Learners table
+CREATE TABLE Learners (
+    LearnerID INT PRIMARY KEY IDENTITY(1,1),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE,
+    Grade INT
+);
+
+-- Create Guardians table
+CREATE TABLE Guardians (
+    GuardianID INT PRIMARY KEY IDENTITY(1,1),
+    LearnerID INT,
+    GuardianName VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    FOREIGN KEY (LearnerID) REFERENCES Learners(LearnerID)
+);
+
+-- Create Results table
+CREATE TABLE Results (
+    ResultID INT PRIMARY KEY IDENTITY(1,1),
+    LearnerID INT,
+    Subject VARCHAR(50),
+    Mark INT,
+    FOREIGN KEY (LearnerID) REFERENCES Learners(LearnerID)
+);
+
+-- Insert sample learners
+INSERT INTO Learners (FirstName, LastName, DateOfBirth, Grade) VALUES
+('Ali', 'Khan', '2015-04-12', 4),
+('Sara', 'Adams', '2014-09-03', 5),
+('Liam', 'Smith', '2015-01-20', 4);
+
+-- Insert guardians
+INSERT INTO Guardians (LearnerID, GuardianName, PhoneNumber) VALUES
+(1, 'Ahmed Khan', '0823456789'),
+(2, 'Fatima Adams', '0834567890'),
+(3, 'John Smith', '0845678901');
+
+-- Insert results
+INSERT INTO Results (LearnerID, Subject, Mark) VALUES
+(1, 'Math', 85),
+(1, 'English', 80),
+(2, 'Math', 78),
+(3, 'Science', 88);
+
+-- View data
+SELECT * FROM Learners;
+SELECT * FROM Guardians;
+SELECT * FROM Results;
